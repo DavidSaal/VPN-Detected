@@ -1,0 +1,28 @@
+{
+  "name": "vpn-detected",
+  "version": "1.0.0",
+  "description": "Leverages VPN activity using several methods.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidSaal/VPN-Detected.git"
+  },
+  "author": "David Saal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavidSaal/VPN-Detected/issues"
+  },
+  "homepage": "https://github.com/DavidSaal/VPN-Detected#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "country-language": "^0.1.7",
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "geoip-lite": "^1.4.1",
+    "request": "^2.88.2"
+  }
+}
