@@ -131,9 +131,9 @@ function isTor(){
 
 
 function WebRTC(){
+  var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
   if(!window.mozRTCPeerConnection || !window.webkitRTCPeerConnection) check();
   else{
-    var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
     var pc = new myPeerConnection({iceServers: [{urls: "stun:stun.l.google.com:19302"}]}),
       noop = function() {},
       localIPs = {},
