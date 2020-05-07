@@ -131,41 +131,38 @@ function isTor(){
 
 
 function WebRTC(){
-  try{
-    var clientIP = document.getElementById("clientIP").innerHTML;
-    var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-    var pc = new myPeerConnection({iceServers: [{urls: "stun:stun.l.google.com:19302"}]}),
-      noop = function() {},
-      localIPs = {},
-      ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
-      key;
-      if(!window.webkitRTCPeerConnection) check();
+  var clientIP = document.getElementById("clientIP").innerHTML;
+  var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+  var pc = new myPeerConnection({iceServers: [{urls: "stun:stun.l.google.com:19302"}]}),
+    noop = function() {},
+    localIPs = {},
+    ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
+    key;
+    document.getElementById("A").innerHTML = window.RTCPeerConnection;
+    document.getElementById("B").innerHTML = window.mozRTCPeerConnection;
+    document.getElementById("C").innerHTML = window.webkitRTCPeerConnection;
+    if(!window.webkitRTCPeerConnection) check();
+
+  function ipIterate(ip) {
+    if (!localIPs[ip]);
+    localIPs[ip] = true;
+  }
   
-    function ipIterate(ip) {
-      if (!localIPs[ip]);
-      localIPs[ip] = true;
-    }
-    
-    pc.createDataChannel("");
-    
-    pc.createOffer(function(sdp) {
-      sdp.sdp.split('\n').forEach(function(line) {
-        if (line.indexOf('candidate') < 0) return;
-        line.match(ipRegex).forEach(ipIterate);
-      });
-      pc.setLocalDescription(sdp, noop, noop);
-    }, noop);
-    
-    pc.onicecandidate = function(ice) {
-      if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
-      ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
-      check()
-    };
-  }
-  catch (e) {
-    check();
-    console.log("WebRTC Error:" + e);
-  }
+  pc.createDataChannel("");
+  
+  pc.createOffer(function(sdp) {
+    sdp.sdp.split('\n').forEach(function(line) {
+      if (line.indexOf('candidate') < 0) return;
+      line.match(ipRegex).forEach(ipIterate);
+    });
+    pc.setLocalDescription(sdp, noop, noop);
+  }, noop);
+  
+  pc.onicecandidate = function(ice) {
+    if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
+    ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
+    check()
+  };
 
   function check(){
     if(!Object.keys(localIPs)[0] && !Object.keys(localIPs)[1]){
