@@ -140,7 +140,7 @@ function WebRTC(){
     document.getElementById("A").innerHTML = window.RTCPeerConnection;
     document.getElementById("B").innerHTML = window.mozRTCPeerConnection;
     document.getElementById("C").innerHTML = window.webkitRTCPeerConnection;
-    if(!window.mozRTCPeerConnection || !window.webkitRTCPeerConnection) check();
+    if(!window.RTCPeerConnection || !window.webkitRTCPeerConnection) check();
     else{
       function ipIterate(ip) {
         if (!localIPs[ip]);
