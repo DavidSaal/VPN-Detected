@@ -138,7 +138,7 @@ function WebRTC(){
     ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
     key;
   
-  if(!window.mozRTCPeerConnection && !window.webkitRTCPeerConnection) check();
+  if(!window.mozRTCPeerConnection || !window.webkitRTCPeerConnection) check();
   else{
     function ipIterate(ip) {
       if (!localIPs[ip]);
