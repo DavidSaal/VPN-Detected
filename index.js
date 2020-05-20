@@ -137,29 +137,28 @@ function WebRTC(){
     localIPs = {},
     ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
     key;
-  
-  if(!window.mozRTCPeerConnection || !window.webkitRTCPeerConnection) check();
-  else{
-    function ipIterate(ip) {
-      if (!localIPs[ip]);
-      localIPs[ip] = true;
-    }
-    
-    pc.createDataChannel("");
-    
-    pc.createOffer(function(sdp) {
-      sdp.sdp.split('\n').forEach(function(line) {
-        if (line.indexOf('candidate') < 0) return;
-        line.match(ipRegex).forEach(ipIterate);
-      });
-      pc.setLocalDescription(sdp, noop, noop);
-    }, noop);
-    
-    pc.onicecandidate = function(ice) {
-      if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
-      ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
-      check()
-    }
+    if(!window.mozRTCPeerConnection && !window.webkitRTCPeerConnection) check();
+    else{
+      function ipIterate(ip) {
+        if (!localIPs[ip]);
+        localIPs[ip] = true;
+      }
+      
+      pc.createDataChannel("");
+      
+      pc.createOffer(function(sdp) {
+        sdp.sdp.split('\n').forEach(function(line) {
+          if (line.indexOf('candidate') < 0) return;
+          line.match(ipRegex).forEach(ipIterate);
+        });
+        pc.setLocalDescription(sdp, noop, noop);
+      }, noop);
+      
+      pc.onicecandidate = function(ice) {
+        if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
+        ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
+        check()
+      }
   };
 
   function check(){
