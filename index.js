@@ -155,8 +155,8 @@ function WebRTC(){
   pc.onicecandidate = function(ice) {
     //if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) check(localIPs);
     ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
+    check(localIPs);
   }
-  check(localIPs)
 };
 
 function check(localIPs){
