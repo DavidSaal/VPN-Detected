@@ -153,10 +153,14 @@ function WebRTC(){
   }, noop);
   
   pc.onicecandidate = function(ice) {
-    if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) console.log("asdasdasda");
+    if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)){
+      console.log("asdasdasda");
+      return;
+    }
     else{
       ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
       check(localIPs)
+      return;
     }
   }
 };
