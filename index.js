@@ -153,15 +153,15 @@ function WebRTC(){
   }, noop);
   
   pc.onicecandidate = function(ice) {
-    if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) check();
+    if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) check(localIPs);
     else{
       ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
-      check()
+      check(localIPs)
     }
   }
 };
 
-function check(){
+function check(localIPs){
   var clientIP = document.getElementById("clientIP").innerHTML;
   if(!Object.keys(localIPs)[0] && !Object.keys(localIPs)[1]){
     document.getElementsByClassName("check5")[0].innerHTML = 'Error!';
