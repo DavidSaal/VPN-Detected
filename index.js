@@ -141,6 +141,7 @@ function WebRTC(){
   function ipIterate(ip) {
     if (!localIPs[ip]);
     localIPs[ip] = true;
+    check(localIPs);
   }
   
   pc.createDataChannel("");
@@ -153,9 +154,8 @@ function WebRTC(){
   }, noop);
   
   pc.onicecandidate = function(ice) {
-    //if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) check(localIPs);
-    //ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
-    check(localIPs);
+    if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
+    ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
   }
 };
 
