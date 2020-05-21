@@ -161,41 +161,40 @@ function WebRTC(){
   }
 };
 
-  function check(){
-    var clientIP = document.getElementById("clientIP").innerHTML;
-    if(!Object.keys(localIPs)[0] && !Object.keys(localIPs)[1]){
-      document.getElementsByClassName("check5")[0].innerHTML = 'Error!';
-      document.getElementsByClassName("check5")[1].innerHTML = 'Error!';
-      document.getElementById("rtcPercentage").setAttribute('style','color: #e6c300;');
-      document.getElementById("rtcStage").setAttribute('style','background: #FFD700;');
-      document.getElementById("toast5").classList.add("toast--yellow");
-      errors++;
+function check(){
+  var clientIP = document.getElementById("clientIP").innerHTML;
+  if(!Object.keys(localIPs)[0] && !Object.keys(localIPs)[1]){
+    document.getElementsByClassName("check5")[0].innerHTML = 'Error!';
+    document.getElementsByClassName("check5")[1].innerHTML = 'Error!';
+    document.getElementById("rtcPercentage").setAttribute('style','color: #e6c300;');
+    document.getElementById("rtcStage").setAttribute('style','background: #FFD700;');
+    document.getElementById("toast5").classList.add("toast--yellow");
+    errors++;
+    Update();
+  }
+  else{
+    if (clientIP == Object.keys(localIPs)[0] || clientIP == Object.keys(localIPs)[1]) {
+      document.getElementsByClassName("check5")[0].innerHTML = 'Succeed';
+      document.getElementsByClassName("check5")[1].innerHTML = 'Succeed';
       Update();
     }
     else{
-      if (clientIP == Object.keys(localIPs)[0] || clientIP == Object.keys(localIPs)[1]) {
-        document.getElementsByClassName("check5")[0].innerHTML = 'Succeed';
-        document.getElementsByClassName("check5")[1].innerHTML = 'Succeed';
-        Update();
+      result += 20;
+      counter++;
+      document.getElementsByClassName('rtcPercentage')[0].innerHTML = '20%';
+      document.getElementsByClassName('rtcPercentage')[1].innerHTML = ' - 20%';
+      document.getElementsByClassName('check5')[0].innerHTML = 'Failed';
+      document.getElementsByClassName('check5')[1].innerHTML = 'Failed';
+      document.getElementById('WebRTC').setAttribute('data-percentage','20');
+      document.getElementById("rtcPercentage").setAttribute('style','color: red;');
+      document.getElementById("rtcStage").setAttribute('style','background: red;');
+      document.getElementById("rtcFg").setAttribute('style','width: 20%; background: red;');
+      document.getElementById("toast5").classList.add("toast--red");
+      document.getElementById("leakedIPs").innerHTML = "<u style='font-size: 14px;'>leaked ip:</u> " + Object.keys(localIPs)[0];
+      if(Object.keys(localIPs)[1] != '0.0.0.0' && Object.keys(localIPs)[1] != undefined){
+        document.getElementById("leakedIPs").innerHTML += ' / ' + Object.keys(localIPs)[1];
       }
-      else{
-        result += 20;
-        counter++;
-        document.getElementsByClassName('rtcPercentage')[0].innerHTML = '20%';
-        document.getElementsByClassName('rtcPercentage')[1].innerHTML = ' - 20%';
-        document.getElementsByClassName('check5')[0].innerHTML = 'Failed';
-        document.getElementsByClassName('check5')[1].innerHTML = 'Failed';
-        document.getElementById('WebRTC').setAttribute('data-percentage','20');
-        document.getElementById("rtcPercentage").setAttribute('style','color: red;');
-        document.getElementById("rtcStage").setAttribute('style','background: red;');
-        document.getElementById("rtcFg").setAttribute('style','width: 20%; background: red;');
-        document.getElementById("toast5").classList.add("toast--red");
-        document.getElementById("leakedIPs").innerHTML = "<u style='font-size: 14px;'>leaked ip:</u> " + Object.keys(localIPs)[0];
-        if(Object.keys(localIPs)[1] != '0.0.0.0' && Object.keys(localIPs)[1] != undefined){
-          document.getElementById("leakedIPs").innerHTML += ' / ' + Object.keys(localIPs)[1];
-        }
-        Update();
-      }
+      Update();
     }
   }
 };
