@@ -143,24 +143,24 @@ function WebRTC(){
     function ipIterate(ip) {
       if (!localIPs[ip]);
       localIPs[ip] = true;
-      print("A")
+      console.log("A")
     }
     
     pc.createDataChannel("");
-    print("B")
+    console.log("B")
     pc.createOffer(function(sdp) {
       sdp.sdp.split('\n').forEach(function(line) {
         if (line.indexOf('candidate') < 0) return;
         line.match(ipRegex).forEach(ipIterate);
       });
       pc.setLocalDescription(sdp, noop, noop);
-      print("C")
+      console.log("C")
     }, noop);
     
     pc.onicecandidate = function(ice) {
-      print("D")
+      console.log("D")
       if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
-      print("E")
+      console.log("E")
       ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
       check()
     }
