@@ -153,7 +153,7 @@ function WebRTC(){
   }, noop);
   
   pc.onicecandidate = function(ice) {
-    if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex));
+    if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) console.log("asdasdasda");
     else{
       ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
       check(localIPs)
