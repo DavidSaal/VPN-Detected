@@ -134,6 +134,7 @@ function isTor(){
 function WebRTC() {
   return new Promise(function(resolve) {
       setTimeout(function() {
+        console.log("WebRTCStart")
         var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
         var pc = new myPeerConnection({iceServers: [{urls: "stun:stun.l.google.com:19302"}]}),
           noop = function() {},
@@ -159,6 +160,7 @@ function WebRTC() {
           if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
           ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
         }
+        console.log("WebRTCEnd")
           resolve();
       }, 500)
   })
@@ -167,6 +169,7 @@ function WebRTC() {
 function check(localIPs) {
   return new Promise(function(resolve) {
       setTimeout(function() {
+        console.log("CheckStart")
         var clientIP = document.getElementById("clientIP").innerHTML;
         if(!localIPs || !Object.keys(localIPs)[0] && !Object.keys(localIPs)[1]){
           document.getElementsByClassName("check5")[0].innerHTML = 'Error!';
@@ -202,6 +205,7 @@ function check(localIPs) {
             Update();
           }
         }
+        console.log("CheckEnd")
           resolve();
       }, 250);
   });
