@@ -170,7 +170,7 @@ function check() {
   return new Promise(function(resolve) {
       setTimeout(function() {
         console.log("CheckStart")
-        console.log("localIP" + Object.keys(localIPs))
+        console.log("localIP" + Object.keys(localIPs)[0] + Object.keys(localIPs)[1])
         var clientIP = document.getElementById("clientIP").innerHTML;
         if(!Object.keys(localIPs)[0] && !Object.keys(localIPs)[1]){
           document.getElementsByClassName("check5")[0].innerHTML = 'Error!';
