@@ -3,6 +3,7 @@ var counter = document.getElementById('Counter').innerHTML;
 var errors = document.getElementById('Errors').innerHTML;
 var hostColor = document.getElementById('hostColor').innerHTML;
 var langColor = document.getElementById('langColor').innerHTML;
+var localIPs = {};
 var flag = 0;
 
 if(hostColor == 'yellow') {    
@@ -126,9 +127,7 @@ function isTor(){
     document.getElementById("torFg").setAttribute('style','width: 20%; background: red;');
     document.getElementById("toast6").classList.add("toast--red");
   }
-  await WebRTC();
-  await check();
-  //WebRTC();
+  WebRTC().then(check).then(function() {})
 };
 
 
