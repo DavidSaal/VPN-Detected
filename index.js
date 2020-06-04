@@ -141,7 +141,6 @@ function WebRTC(){
   function ipIterate(ip) {
     if (!localIPs[ip]);
     localIPs[ip] = true;
-    check(localIPs);
   }
   
   pc.createDataChannel("");
@@ -151,7 +150,8 @@ function WebRTC(){
       line.match(ipRegex).forEach(ipIterate);
     });
     pc.setLocalDescription(sdp, noop, noop);
-  }, noop);
+    check(localIPs);
+  }, noop );
   
   pc.onicecandidate = function(ice) {
     if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
