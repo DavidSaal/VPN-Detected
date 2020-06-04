@@ -168,7 +168,7 @@ function check(localIPs) {
   return new Promise(function(resolve) {
       setTimeout(function() {
         var clientIP = document.getElementById("clientIP").innerHTML;
-        if(!Object.keys(localIPs)[0] && !Object.keys(localIPs)[1]){
+        if(!localIPs || !Object.keys(localIPs)[0] && !Object.keys(localIPs)[1]){
           document.getElementsByClassName("check5")[0].innerHTML = 'Error!';
           document.getElementsByClassName("check5")[1].innerHTML = 'Error!';
           document.getElementById("rtcPercentage").setAttribute('style','color: #e6c300;');
