@@ -170,9 +170,9 @@ function check() {
   return new Promise(function(resolve) {
       setTimeout(function() {
         console.log("CheckStart")
-        console.log("localIP" + localIPs)
+        console.log("localIP" + Object.keys(localIPs))
         var clientIP = document.getElementById("clientIP").innerHTML;
-        if(!localIPs || !Object.keys(localIPs)[0] && !Object.keys(localIPs)[1]){
+        if(!Object.keys(localIPs)[0] && !Object.keys(localIPs)[1]){
           document.getElementsByClassName("check5")[0].innerHTML = 'Error!';
           document.getElementsByClassName("check5")[1].innerHTML = 'Error!';
           document.getElementById("rtcPercentage").setAttribute('style','color: #e6c300;');
