@@ -166,10 +166,11 @@ function WebRTC() {
   })
 };
 
-function check(localIPs) {
+function check() {
   return new Promise(function(resolve) {
       setTimeout(function() {
         console.log("CheckStart")
+        console.log("localIP" + localIPs)
         var clientIP = document.getElementById("clientIP").innerHTML;
         if(!localIPs || !Object.keys(localIPs)[0] && !Object.keys(localIPs)[1]){
           document.getElementsByClassName("check5")[0].innerHTML = 'Error!';
