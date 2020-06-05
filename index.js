@@ -160,7 +160,7 @@ function WebRTC() {
           if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
           ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
         }
-        console.log("WebRTCEnd")
+        console.log("WebRTCEnd" + ' ' + Object.keys(localIPs)[0] + ' ' + Object.keys(localIPs)[1])
           resolve();
       }, 500)
   })
